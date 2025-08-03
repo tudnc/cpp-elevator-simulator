@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <string>
+using namespace std;
 
 // Enum to represent the movement direction of the elevator
 enum Direction { UP, DOWN, IDLE };
@@ -22,7 +23,7 @@ class Elevator {
     int currentFloor;           // Current floor the elevator is on
     Direction direction;        // Current movement direction of the elevator
     bool doorOpen;              // Whether the elevator door is open
-    std::vector<int> requests;  // Queue of requested destination floors
+    vector<int> requests;  // Queue of requested destination floors
 
   public:
     // Constructor: Initialize the elevator with an ID and set defaults

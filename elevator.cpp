@@ -44,7 +44,7 @@ void Elevator::step() {
          << ". Doors opening..." << endl;
 
     // Keep the door open for 2 seconds to visualize the door status
-    this_thread::sleep_for(std::chrono::seconds(2));
+    this_thread::sleep_for(chrono::seconds(2));
 
     doorOpen = false;
 
