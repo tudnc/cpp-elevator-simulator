@@ -48,23 +48,23 @@ void Building::assignRequest(int floor) {
   int minDistance = numFloors + 1;
 
   for (size_t i = 0; i < elevators.size(); ++i) {
-    // Tính khoảng cách từ elevator đến tầng gọi
+    // Calculate the distance from the elevator to the requested floor
     int distance = abs(elevators[i].getCurrentFloor() - floor);
 
-    // Nếu elevator không có request, ưu tiên chọn elevator này
+    // If the elevator has no requests, prioritize selecting this elevator
     if (!elevators[i].hasRequests()) {
         chosen = i;
         break;
     }
 
-    // Chọn elevator có khoảng cách nhỏ nhất
+    // Select the elevator with the smallest distance
     if (distance < minDistance) {
         minDistance = distance;
         chosen = i;
     }
   }
 
-  // Gán request cho elevator được chọn
+  // Assign the request to the chosen elevator
   if (chosen != -1) {
       elevators[chosen].addRequest(floor);
   }
