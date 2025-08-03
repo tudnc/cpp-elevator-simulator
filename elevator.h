@@ -44,6 +44,7 @@ class Elevator {
     // Check if the elevator has any pending requests
     bool hasRequests() const;
 
+    // Get the current floor of the elevator.
     int getCurrentFloor() const;
 };
 

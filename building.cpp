@@ -10,16 +10,18 @@
  */
 
 #include "building.h"
+#include "logger.h"
 
 /*
 Constructor for the Building class
 Initializes the number of floors and creates the specified number of elevators.
 */
 Building::Building(int floors, int numElevators): numFloors(floors) {
-  unsigned int i;
-  for (i = 0; i < numElevators; ++i) {
+  for (int i = 0; i < numElevators; ++i) {
     elevators.emplace_back(i); // Create elevator with ID i
   }
+  Logger::log("Building initialized with " + to_string(numFloors) + 
+              " floors and " + to_string(numElevators) + " elevators.");
 }
 
 /**
@@ -28,50 +30,38 @@ Building::Building(int floors, int numElevators): numFloors(floors) {
  * Otherwise, assign it to the elevator with the fewest requests.
  */
 void Building::assignRequest(int floor) {
-  // unsigned int i;
-  // int minRequests = 
-  //       elevators[0].hasRequests() ? elevators[0].hasRequests() : 0;
-  // int chosen = 0;
-
-  // // Find an elevator with no current requests
-  // for (i = 0; i < elevators.size(); ++i) {
-  //   if (!elevators[i].hasRequests()) {
-  //     chosen = i;
-  //     break;
-  //   }
-  // }
-
-  // // Assign the floor request to the chosen elevator
-  // elevators[chosen].addRequest(floor);
-
   int chosen = -1;
   int minDistance = numFloors + 1;
 
   for (size_t i = 0; i < elevators.size(); ++i) {
-    // Calculate the distance from the elevator to the requested floor
     int distance = abs(elevators[i].getCurrentFloor() - floor);
 
-    // If the elevator has no requests, prioritize selecting this elevator
     if (!elevators[i].hasRequests()) {
         chosen = i;
+        Logger::log("Floor request " + to_string(floor) + 
+                    " assigned to idle Elevator " + to_string(i));
         break;
     }
 
-    // Select the elevator with the smallest distance
     if (distance < minDistance) {
         minDistance = distance;
         chosen = i;
     }
   }
 
-  // Assign the request to the chosen elevator
   if (chosen != -1) {
       elevators[chosen].addRequest(floor);
+      Logger::log("Floor request " + to_string(floor) + 
+                  " assigned to Elevator " + to_string(chosen) +
+                  " (distance = " + to_string(minDistance) + ")");
+  } else {
+      Logger::log("No available elevator for floor request " + to_string(floor));
   }
 }
 
 // Progress all elevators by one simulation step.
 void Building::stepAll() {
+  Logger::log("Building stepping all elevators.");
   for (auto& elevator : elevators) {
     elevator.step();
   }
@@ -79,6 +69,7 @@ void Building::stepAll() {
 
 // Display the status of all elevators (e.g., current floor, requests queue)
 void Building::displayStatus() const {
+  Logger::log("Displaying status of all elevators.");
   for (const auto& elevator : elevators) {
     elevator.displayStatus();
   }

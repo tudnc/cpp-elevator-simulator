@@ -10,11 +10,15 @@
 
 #include <iostream>
 #include "building.h"
+#include "logger.h"
 #include <thread>     // For sleep functionality
 #include <chrono>     // For time intervals
 using namespace std;
 
 int main() {
+  Logger::init("elevator_log.txt"); // Initialize logging
+  Logger::log("Simulation started.");
+
   /**
    * Variables:
    * NUM_FLOORS: Total number of floors in the building
@@ -54,7 +58,7 @@ int main() {
 
     // If user presses Enter without input → just move elevators one step
     if (input.empty()) {
-        // Chỉ di chuyển mà không thêm request
+        Logger::log("No request entered, stepping elevators.");
         building.stepAll();
         this_thread::sleep_for(chrono::seconds(1));
         continue;
@@ -63,9 +67,9 @@ int main() {
     // Convert input string to integer (floor number)
     floor = stoi(input);  // convert string to int
 
-
     // Check if user wants to end the simulation
     if (floor == -1) {
+      Logger::log("User exited simulation.");
       running = false;
       break;
     }
@@ -73,10 +77,12 @@ int main() {
     // Validate floor input (must be within building's range)
     if (floor < 0 || floor >= NUM_FLOORS) {
       cout << "Invalid floor. Try again.\n";
+      Logger::log("Invalid floor entered: " + to_string(floor));
       continue;
     }
 
     // Assign the request to the nearest/available elevator
+    Logger::log("User requested floor " + to_string(floor));
     building.assignRequest(floor);
 
     // Move elevators one step toward their next destination
@@ -88,31 +94,15 @@ int main() {
 
   // Exit message
   cout << "Simulation ended.\n";
+  Logger::log("Simulation ended.");
+  Logger::close();
   return 0;
 }
 
+
 /*
 Sample Run 1:
-➜  elevator make run
-[ - make run -> Project 1: Elevator Simulator]
-Elevator Simulation Started (2 elevators, Floors 0-9)
-[Elevator 0] Floor: 0, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 0, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit: 4
-[Elevator 0] Floor: 1, Direction: UP, Door: Closed
-[Elevator 1] Floor: 0, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit:
-[Elevator 0] Floor: 2, Direction: UP, Door: Closed
-[Elevator 1] Floor: 0, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit:
-Elevator 0 arrived at floor 4. Doors opening...
-[Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 0, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit: -1
-Simulation ended.
-
-Sample Run 2:
-➜  elevator make run
+➜  elevator git:(develop) ✗ make run
 [ - make run -> Project 1: Elevator Simulator]
 Elevator Simulation Started (2 elevators, Floors 0-9)
 [Elevator 0] Floor: 0, Direction: IDLE, Door: Closed
@@ -130,23 +120,20 @@ Enter floor request (0-9), press Enter to continue, or -1 to quit:
 Elevator 1 arrived at floor 2. Doors opening...
 [Elevator 0] Floor: 4, Direction: UP, Door: Closed
 [Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit:
+Enter floor request (0-9), press Enter to continue, or -1 to quit: 5
 Elevator 0 arrived at floor 4. Doors opening...
 [Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit: 1
-[Elevator 0] Floor: 3, Direction: DOWN, Door: Closed
-[Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
+[Elevator 1] Floor: 3, Direction: UP, Door: Closed
 Enter floor request (0-9), press Enter to continue, or -1 to quit:
-[Elevator 0] Floor: 2, Direction: DOWN, Door: Closed
-[Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
+[Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
+[Elevator 1] Floor: 4, Direction: UP, Door: Closed
 Enter floor request (0-9), press Enter to continue, or -1 to quit:
-[Elevator 0] Floor: 1, Direction: DOWN, Door: Closed
-[Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
+[Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
+[Elevator 1] Floor: 5, Direction: UP, Door: Closed
 Enter floor request (0-9), press Enter to continue, or -1 to quit:
-Elevator 0 arrived at floor 1. Doors opening...
-[Elevator 0] Floor: 1, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
+Elevator 1 arrived at floor 5. Doors opening...
+[Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
+[Elevator 1] Floor: 5, Direction: IDLE, Door: Closed
 Enter floor request (0-9), press Enter to continue, or -1 to quit: -1
 Simulation ended.
 */
