@@ -1,3 +1,14 @@
+/**
+ * Name: Dinh Nguyen Cam Tu 🇻🇳
+ * Professor: Kamran Eftekhari, Ph.D.
+ * Class: Su25 CIS D002B 61Z Intermediate Programming Method C++
+ * File: logger.h
+ * Purpose: Declares the Logger class which provides static methods 
+ *          for logging messages with timestamps to a file. Supports 
+ *          initializing the log file, writing log entries, and closing 
+ *          the log file to release resources.
+ * 
+ */
 #ifndef LOGGER_H
 #define LOGGER_H
 

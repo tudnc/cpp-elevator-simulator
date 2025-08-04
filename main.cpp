@@ -101,8 +101,8 @@ int main() {
 
 
 /*
-Sample Run 1:
-➜  elevator git:(develop) ✗ make run
+Sample Run:
+➜  elevator git:(main) ✗ make run
 [ - make run -> Project 1: Elevator Simulator]
 Elevator Simulation Started (2 elevators, Floors 0-9)
 [Elevator 0] Floor: 0, Direction: IDLE, Door: Closed
@@ -120,20 +120,14 @@ Enter floor request (0-9), press Enter to continue, or -1 to quit:
 Elevator 1 arrived at floor 2. Doors opening...
 [Elevator 0] Floor: 4, Direction: UP, Door: Closed
 [Elevator 1] Floor: 2, Direction: IDLE, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit: 5
+Enter floor request (0-9), press Enter to continue, or -1 to quit: 1
 Elevator 0 arrived at floor 4. Doors opening...
 [Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 3, Direction: UP, Door: Closed
+[Elevator 1] Floor: 1, Direction: DOWN, Door: Closed
 Enter floor request (0-9), press Enter to continue, or -1 to quit:
+Elevator 1 arrived at floor 1. Doors opening...
 [Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 4, Direction: UP, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit:
-[Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 5, Direction: UP, Door: Closed
-Enter floor request (0-9), press Enter to continue, or -1 to quit:
-Elevator 1 arrived at floor 5. Doors opening...
-[Elevator 0] Floor: 4, Direction: IDLE, Door: Closed
-[Elevator 1] Floor: 5, Direction: IDLE, Door: Closed
+[Elevator 1] Floor: 1, Direction: IDLE, Door: Closed
 Enter floor request (0-9), press Enter to continue, or -1 to quit: -1
 Simulation ended.
 */

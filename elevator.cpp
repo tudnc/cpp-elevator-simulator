@@ -1,3 +1,12 @@
+/**
+ * Name: Dinh Nguyen Cam Tu 🇻🇳
+ * Professor: Kamran Eftekhari, Ph.D.
+ * Class: Su25 CIS D002B 61Z Intermediate Programming Method C++
+ * File: elevator.cpp
+ * Purpose: Implementation of Elevator class handling requests, movement, 
+ *          and sound.
+ * 
+ */
 #include "elevator.h"
 #include "logger.h"
 #include <iostream>
@@ -85,7 +94,7 @@ void Elevator::step() {
             Logger::log("Elevator " + to_string(id) + " arrived at floor " + 
                         to_string(currentFloor));
 
-            // Phát âm thanh ding khi thang máy mở cửa
+            // Make a ding sound when opening the door
             playDingSound();
 
             this_thread::sleep_for(chrono::seconds(2));
@@ -120,7 +129,7 @@ void Elevator::step() {
             Logger::log("Elevator " + to_string(id) + " arrived at floor " + 
                         to_string(currentFloor));
 
-            // Phát âm thanh ding khi thang máy mở cửa
+            // Make a ding sound when opening the door
             playDingSound();
 
             this_thread::sleep_for(chrono::seconds(2));
