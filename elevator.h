@@ -1,18 +1,11 @@
-/**
- * Name: Dinh Nguyen Cam Tu 🇻🇳
- * Professor: Kamran Eftekhari, Ph.D.
- * Class: Su25 CIS D002B 61Z Intermediate Programming Method C++
- * File: elevator.h
- * Purpose: Define the Elevator class, representing individual 
- *          elevator behavior
- */
-
 #ifndef ELEVATOR_H
 #define ELEVATOR_H
 
 #include <vector>
 #include <string>
 #include <set>
+#include <memory>
+#include <SFML/Audio.hpp>  // SFML Audio Library
 using namespace std;
 
 // Enum to represent the movement direction of the elevator
@@ -24,9 +17,11 @@ class Elevator {
     int currentFloor;           // Current floor the elevator is on
     Direction direction;        // Current movement direction of the elevator
     bool doorOpen;              // Whether the elevator door is open
-    // vector<int> requests;       // Queue of requested destination floors
     set<int> upRequests;
     set<int, greater<int>> downRequests;
+
+    // Shared sound buffer to create multiple sound instances
+    sf::SoundBuffer dingBuffer;
 
   public:
     // Constructor: Initialize the elevator with an ID and set defaults
@@ -46,7 +41,10 @@ class Elevator {
 
     // Get the current floor of the elevator.
     int getCurrentFloor() const;
+
+  private:
+    // Helper function to play ding sound
+    void playDingSound();
 };
 
 #endif
-

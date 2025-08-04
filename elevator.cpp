@@ -1,13 +1,3 @@
-/**
- * Name: Dinh Nguyen Cam Tu 🇻🇳
- * Professor: Kamran Eftekhari, Ph.D.
- * Class: Su25 CIS D002B 61Z Intermediate Programming Method C++
- * File: elevator.cpp
- * Purpose: This file implements the Elevator class, which simulates 
- *          the behavior of a single elevator including movement, request 
- *          processing, and status display.
- */
-
 #include "elevator.h"
 #include "logger.h"
 #include <iostream>
@@ -15,10 +5,18 @@
 #include <chrono>
 using namespace std;
 
+const string SOUND_DIRECTORY = "sounds/ding.mp3"; // Sound directory
+
 // Constructor initializes the elevator's ID and sets initial state.
 Elevator::Elevator(int id) 
-  : id(id), currentFloor(0), direction(IDLE), doorOpen(false) {
+  : id(id), currentFloor(0), direction(IDLE), doorOpen(false)
+{
     Logger::log("Elevator " + to_string(id) + " initialized at floor 0.");
+
+    // Open sound file
+    if (!dingBuffer.loadFromFile(SOUND_DIRECTORY)) {
+        Logger::log("Failed to load ding sound for Elevator " + to_string(id));
+    }
 }
   
 // Add a floor request to the elevator's request queue.
@@ -29,6 +27,10 @@ void Elevator::addRequest(int floor) {
              << floor << endl;
         Logger::log("Elevator " + to_string(id) + 
                     " instantly opened doors at floor " + to_string(floor));
+
+        // Make a ding sound when opening the door
+        playDingSound();
+
         this_thread::sleep_for(chrono::seconds(2));
         doorOpen = false;
         return;
@@ -82,6 +84,10 @@ void Elevator::step() {
                  << ". Doors opening..." << endl;
             Logger::log("Elevator " + to_string(id) + " arrived at floor " + 
                         to_string(currentFloor));
+
+            // Phát âm thanh ding khi thang máy mở cửa
+            playDingSound();
+
             this_thread::sleep_for(chrono::seconds(2));
             doorOpen = false;
             upRequests.erase(it);
@@ -113,6 +119,10 @@ void Elevator::step() {
                  << ". Doors opening..." << endl;
             Logger::log("Elevator " + to_string(id) + " arrived at floor " + 
                         to_string(currentFloor));
+
+            // Phát âm thanh ding khi thang máy mở cửa
+            playDingSound();
+
             this_thread::sleep_for(chrono::seconds(2));
             doorOpen = false;
             downRequests.erase(it);
@@ -155,3 +165,19 @@ bool Elevator::hasRequests() const {
 int Elevator::getCurrentFloor() const {
     return currentFloor;
 }
+
+// Helper to play ding sound with a separate instance
+void Elevator::playDingSound() {
+    if (dingBuffer.getSampleCount() > 0) {
+        auto sound = make_unique<sf::Sound>(dingBuffer);
+        sound->setVolume(100.f);
+        sound->play();
+        Logger::log("Playing ding sound for Elevator " + to_string(id));
+
+        // Detached thread giữ sound sống đủ lâu để phát hết
+        thread([s = std::move(sound)]() mutable {
+            this_thread::sleep_for(chrono::seconds(2));
+        }).detach();
+    }
+}
+

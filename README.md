@@ -9,6 +9,9 @@ This is a project to simulate elevator system in a multi-storey building. The pr
 - Display elevator status (floor, door open/close status, and navigation).
 - Delay door open/close
 - Control panel interface
+- [BONUS] Elevator sound effect using SFML
+- [BONUS] Prioritize requests based on proximity or direction
+- [BUNUS] Elevator progress log
 
 **Code Structure:**
 - main.cpp: Main simulation loop, user input handling.
@@ -23,6 +26,19 @@ This is a project to simulate elevator system in a multi-storey building. The pr
 ### Prerequisites:
 - g++ compiler supporting C++23
 - Make utility
+- SFML library (for playing elevator sound)
+
+### Install SFML
+
+macOS (Homebrew):
+```bash
+brew install sfml
+```
+
+Ubuntu/Debian:
+```bash
+sudo apt-get install libsfml-dev
+```
 
 ### How to compile and run
 
@@ -34,7 +50,7 @@ make run
 OR
 
 ```bash
-g++ -std=c++23 main.cpp building.cpp elevator.cpp logger.cpp -o ./build/elevator_simulator
+g++ -std=c++23 main.cpp building.cpp elevator.cpp logger.cpp -o ./build/elevator_simulator $(SFML_FLAGS)
 
 ./build/elevator_simulator
 ```
