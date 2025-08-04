@@ -2,7 +2,7 @@
  * Name: Dinh Nguyen Cam Tu 🇻🇳
  * Professor: Kamran Eftekhari, Ph.D.
  * Class: Su25 CIS D002B 61Z Intermediate Programming Method C++
- * File: elevator.h
+ * File: Elevator.h
  * Purpose: Defines the Elevator class responsible for handling 
  *          elevator operations, including movement, requests, 
  *          door status, and sound notifications.

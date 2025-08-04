@@ -9,7 +9,7 @@
  *          and properly close the file.
  * 
  */
-#include "logger.h"
+#include "Logger.h"
 #include <iostream>
 #include <ctime>
 

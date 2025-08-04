@@ -7,8 +7,8 @@
  *          and sound.
  * 
  */
-#include "elevator.h"
-#include "logger.h"
+#include "Elevator.h"
+#include "Logger.h"
 #include <iostream>
 #include <thread>
 #include <chrono>

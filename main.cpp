@@ -9,8 +9,8 @@
  */
 
 #include <iostream>
-#include "building.h"
-#include "logger.h"
+#include "Building.h"
+#include "Logger.h"
 #include <thread>     // For sleep functionality
 #include <chrono>     // For time intervals
 using namespace std;

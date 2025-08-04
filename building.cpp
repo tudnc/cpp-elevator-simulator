@@ -9,8 +9,8 @@
  *          elevators.
  */
 
-#include "building.h"
-#include "logger.h"
+#include "Building.h"
+#include "Logger.h"
 
 /*
 Constructor for the Building class

@@ -2,7 +2,7 @@
  * Name: Dinh Nguyen Cam Tu 🇻🇳
  * Professor: Kamran Eftekhari, Ph.D.
  * Class: Su25 CIS D002B 61Z Intermediate Programming Method C++
- * File: building.h
+ * File: Building.h
  * Purpose: This header file defines the Building class, which manages 
  *          a collection of Elevator objects and provides functionality 
  *          to assign floor requests, advance elevator states, and display 
@@ -13,7 +13,7 @@
 #ifndef BUILDING_H
 #define BUILDING_H
 
-#include "elevator.h"
+#include "Elevator.h"
 #include <vector>
 using namespace std;
 
